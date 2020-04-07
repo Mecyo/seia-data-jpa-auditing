@@ -1,22 +1,39 @@
-# seia-data-jpa-auditing
-Library project for auditing entities with Spring Boot
+<!-- ⚠️ This README has been generated from the file(s) "blueprint.md" ⚠️-->
+[![-----------------------------------------------------](https://raw.githubusercontent.com/andreasbm/readme/master/assets/lines/colored.png)](#seia-data-jpa-auditing)
 
-## Introduction
+# ➤ seia-data-jpa-auditing
+Library project for auditing entities with Spring Data JPA
 
-This library is made as both a class project (in Boston University) with intention of solving Roger's business problems. This online dashboard is made for him so he can manage his workers and customers easier.
+
+[![-----------------------------------------------------](https://raw.githubusercontent.com/andreasbm/readme/master/assets/lines/colored.png)](#introduction)
+
+## ➤ Introduction
+
+This library was implemented in order to create, in a generic way, a standardized abstraction for the audit of entities in the SEMA / INEMA systems.
 
 
-## Development
+
+[![-----------------------------------------------------](https://raw.githubusercontent.com/andreasbm/readme/master/assets/lines/colored.png)](#development)
+
+## ➤ Development
 
 ```$xslt
-// Run postgres on mac
-pg_ctl -D /usr/local/var/postgres start
-cd frontend
-npm start
-// then start the spring boot backend
+// To audit an entity, it will need to extend 'BaseAuditableEntity':
+
+@Entity
+public class File extends BaseAuditableEntity {
+
+
+// In audited entities, if it is necessary to ignore the serialization of relationships, use:
+@OneToOne
+    @JsonSerialize(using = CustomEntitySerializer.class)/**Retorna apenas o id da classe referenciada ao ser serializado**/
+    private Teste teste;
 ```
 
-## Branching
+
+[![-----------------------------------------------------](https://raw.githubusercontent.com/andreasbm/readme/master/assets/lines/colored.png)](#branching)
+
+## ➤ Branching
 
 `dev` is the main development branch. Code in this branch are deployed to the staging server for internal reviewing/testing. Staging server is at https://staging-business-dashboard.stevemu.com
 
