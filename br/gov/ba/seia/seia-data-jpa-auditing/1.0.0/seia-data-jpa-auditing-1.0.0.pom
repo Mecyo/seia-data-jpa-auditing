@@ -87,6 +87,7 @@
 					<repositoryName>${project.artifactId}</repositoryName>
 					<repositoryOwner>Mecyo</repositoryOwner>
 				</configuration>
+				
 				<executions>
 					<execution>
 						<goals>
