@@ -1,4 +1,4 @@
-package br.gov.ba.seia.auditing;
+package br.gov.ba.seia.auditing.model.generic;
 
 import org.springframework.data.annotation.CreatedBy;
 import org.springframework.data.annotation.CreatedDate;
@@ -15,6 +15,11 @@ import java.util.Date;
 
 import static javax.persistence.TemporalType.TIMESTAMP;
 
+/**
+ * @author Emerson Santos (emerson.santos@prodeb.ba.gov.br)
+ *
+ * @param <U>
+ */
 @MappedSuperclass
 @JsonFilter("logAuditFilter")
 @EntityListeners(AuditingEntityListener.class)
@@ -65,5 +70,4 @@ abstract class Auditable<U> {
     public void setLastModifiedDate(Date lastModifiedDate) {
         this.lastModifiedDate = lastModifiedDate;
     }
-
 }

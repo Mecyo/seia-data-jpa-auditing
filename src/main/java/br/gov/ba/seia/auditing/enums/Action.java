@@ -1,4 +1,4 @@
-package br.gov.ba.seia.auditing;
+package br.gov.ba.seia.auditing.enums;
 
 /**
  * @author Naresh Joshi

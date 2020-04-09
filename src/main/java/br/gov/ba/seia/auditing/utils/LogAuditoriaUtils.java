@@ -1,7 +1,7 @@
 /**
  * 
  */
-package br.gov.ba.seia.auditing;
+package br.gov.ba.seia.auditing.utils;
 
 import java.io.IOException;
 

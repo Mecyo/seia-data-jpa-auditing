@@ -1,12 +1,14 @@
 /**
  * 
  */
-package br.gov.ba.seia.auditing;
+package br.gov.ba.seia.auditing.model.generic;
 
 import java.io.Serializable;
 
 import javax.persistence.EntityListeners;
 import javax.persistence.MappedSuperclass;
+
+import br.gov.ba.seia.auditing.GenericEntityListener;
 
 /**
  * @author Emerson Santos (emerson.santos@prodeb.ba.gov.br)
@@ -14,7 +16,7 @@ import javax.persistence.MappedSuperclass;
  */
 @MappedSuperclass
 @EntityListeners(GenericEntityListener.class)
-public abstract class BaseEntity extends Auditable<String> implements Serializable {
+public abstract class BaseAuditableEntity extends Auditable<String> implements Serializable {
 
 	protected static final long serialVersionUID = -4681893312842179698L;
 	

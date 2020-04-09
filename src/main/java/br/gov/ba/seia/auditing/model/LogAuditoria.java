@@ -1,4 +1,4 @@
-package br.gov.ba.seia.auditing;
+package br.gov.ba.seia.auditing.model;
 
 import static javax.persistence.EnumType.STRING;
 import static javax.persistence.TemporalType.TIMESTAMP;
@@ -15,6 +15,8 @@ import javax.persistence.Temporal;
 import org.springframework.data.annotation.CreatedBy;
 import org.springframework.data.annotation.CreatedDate;
 import org.springframework.data.jpa.domain.support.AuditingEntityListener;
+
+import br.gov.ba.seia.auditing.enums.Action;
 
 
 /**
