@@ -21,9 +21,9 @@ import static javax.persistence.TemporalType.TIMESTAMP;
  * @param <U>
  */
 @MappedSuperclass
-@JsonFilter("logAuditFilter")
+@JsonFilter(value = "logAuditFilter")
 @EntityListeners(AuditingEntityListener.class)
-abstract class Auditable<U> {
+public abstract class Auditable<U> {
 
     @CreatedBy
     protected U createdBy;

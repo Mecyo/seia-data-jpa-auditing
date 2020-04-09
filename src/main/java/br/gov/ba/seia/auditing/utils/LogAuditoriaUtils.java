@@ -11,6 +11,8 @@ import com.fasterxml.jackson.databind.ser.FilterProvider;
 import com.fasterxml.jackson.databind.ser.impl.SimpleBeanPropertyFilter;
 import com.fasterxml.jackson.databind.ser.impl.SimpleFilterProvider;
 
+import br.gov.ba.seia.auditing.model.generic.Auditable;
+
 /**
  * @author Emerson Santos (emerson.santos@prodeb.ba.gov.br)
  *
@@ -27,6 +29,8 @@ public class LogAuditoriaUtils {
 		try {
 			if (propertiesExclude != null) {
 				SimpleBeanPropertyFilter sp = SimpleBeanPropertyFilter.serializeAllExcept(propertiesExclude);
+				
+				jackson.addMixIn(obj.getClass(), Auditable.class);
 
 				FilterProvider filters = new SimpleFilterProvider().addFilter("logAuditFilter", sp);
 
