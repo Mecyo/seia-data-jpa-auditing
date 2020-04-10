@@ -5,6 +5,7 @@ import static javax.persistence.TemporalType.TIMESTAMP;
 
 import java.util.Date;
 
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.EntityListeners;
 import javax.persistence.Enumerated;
@@ -34,8 +35,10 @@ public class LogAuditoria<T> {
 	
 	private Integer ownerId;
 	
+	@Column(length=600)
 	private String oldValue;
 	
+	@Column(length=600)
 	private String newValue;
 	
 	@Enumerated(STRING)

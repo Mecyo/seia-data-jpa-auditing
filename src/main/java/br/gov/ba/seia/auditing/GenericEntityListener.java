@@ -12,7 +12,7 @@ import java.util.Map;
 
 import javax.annotation.Resource;
 import javax.persistence.EntityManager;
-import javax.persistence.PostPersist;
+import javax.persistence.PrePersist;
 import javax.persistence.PreRemove;
 import javax.persistence.PreUpdate;
 import javax.transaction.Transactional;
@@ -56,7 +56,7 @@ public class GenericEntityListener<T> implements ApplicationContextAware {
 	@Resource
 	private AuditorAwareInformations auditorAware;
 	
-	@PostPersist
+	@PrePersist
 	public void posPersist(T target) {
 		perform(createLog(target));
 	}
@@ -92,7 +92,7 @@ public class GenericEntityListener<T> implements ApplicationContextAware {
 	 */
 	private LogAuditoria<T> createLog(T target) {
 		String json = LogAuditoriaUtils.objectToJson(target, propertiesExcludeJson);
-		return new LogAuditoria<T>(target.getClass().getName(), getId(target), null, json, INSERTED,
+		return new LogAuditoria<T>(target.getClass().getName(), null, null, json, INSERTED,
 				auditorAware.getClientHost(), auditorAware.getClientIpAddress());
 	}
 

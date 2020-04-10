@@ -24,5 +24,5 @@ public abstract class BaseAuditableEntity extends Auditable<String> implements S
 	 * Implementação obrigatória em caso de uso da library LogAuditoria
 	 * @return
 	 */
-	protected abstract Integer getId();
+	public abstract Integer getId();
 }
