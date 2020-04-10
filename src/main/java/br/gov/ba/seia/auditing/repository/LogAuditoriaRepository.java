@@ -11,5 +11,5 @@ import br.gov.ba.seia.auditing.model.LogAuditoria;
  * @param <T>
  */
 @Repository
-interface LogAuditoriaRepository<T> extends JpaRepository<LogAuditoria<T>, Integer> {
+public interface LogAuditoriaRepository<T> extends JpaRepository<LogAuditoria<T>, Integer> {
 }

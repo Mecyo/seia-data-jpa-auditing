@@ -12,7 +12,7 @@ import java.util.Map;
 
 import javax.annotation.Resource;
 import javax.persistence.EntityManager;
-import javax.persistence.PrePersist;
+import javax.persistence.PostPersist;
 import javax.persistence.PreRemove;
 import javax.persistence.PreUpdate;
 import javax.transaction.Transactional;
@@ -56,7 +56,7 @@ public class GenericEntityListener<T> implements ApplicationContextAware {
 	@Resource
 	private AuditorAwareInformations auditorAware;
 	
-	@PrePersist
+	@PostPersist
 	public void posPersist(T target) {
 		perform(createLog(target));
 	}
