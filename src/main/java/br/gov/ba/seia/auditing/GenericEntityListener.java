@@ -22,6 +22,7 @@ import org.hibernate.Session;
 import org.springframework.beans.BeansException;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.ApplicationContextAware;
+import org.springframework.http.converter.json.Jackson2ObjectMapperBuilder;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.JsonNode;
@@ -40,7 +41,6 @@ public class GenericEntityListener<T> implements ApplicationContextAware {
 
 	private final String NEW_VALUE = "newValue";
 	private final String OLD_VALUE = "oldValue";
-	private final String[] propertiesExcludeJson = new String[] { "createdBy", "createdDate", "lastModifiedBy", "lastModifiedDate" };
 	
     private ApplicationContext context = null;
 
@@ -55,6 +55,10 @@ public class GenericEntityListener<T> implements ApplicationContextAware {
     
 	@Resource
 	private AuditorAwareInformations auditorAware;
+	
+	@Resource
+	private Jackson2ObjectMapperBuilder mappingJackson2Object;
+
 	
 	@PrePersist
 	public void posPersist(T target) {
@@ -91,7 +95,7 @@ public class GenericEntityListener<T> implements ApplicationContextAware {
 	 * @return
 	 */
 	private LogAuditoria<T> createLog(T target) {
-		String json = LogAuditoriaUtils.objectToJson(target, propertiesExcludeJson);
+		String json = LogAuditoriaUtils.objectToJson(target, mappingJackson2Object);
 		return new LogAuditoria<T>(target.getClass().getName(), null, null, json, INSERTED,
 				auditorAware.getClientHost(), auditorAware.getClientIpAddress());
 	}
@@ -147,8 +151,8 @@ public class GenericEntityListener<T> implements ApplicationContextAware {
 		JsonNode beforeNode;
 		JsonNode afterNode;
 		try {
-			String jsonOldTarget = LogAuditoriaUtils.objectToJson(oldTarget, propertiesExcludeJson);
-			String jsonTarget = LogAuditoriaUtils.objectToJson(target, propertiesExcludeJson);
+			String jsonOldTarget = LogAuditoriaUtils.objectToJson(oldTarget, mappingJackson2Object);
+			String jsonTarget = LogAuditoriaUtils.objectToJson(target, mappingJackson2Object);
 			beforeNode = jackson.readTree(jsonOldTarget);
 			afterNode = jackson.readTree(jsonTarget);
 			JsonNode patchNode = com.flipkart.zjsonpatch.JsonDiff.asJson(beforeNode, afterNode);

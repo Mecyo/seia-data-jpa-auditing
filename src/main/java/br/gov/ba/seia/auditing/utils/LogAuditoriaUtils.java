@@ -5,11 +5,10 @@ package br.gov.ba.seia.auditing.utils;
 
 import java.io.IOException;
 
+import org.springframework.http.converter.json.Jackson2ObjectMapperBuilder;
+
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.fasterxml.jackson.databind.ser.FilterProvider;
-import com.fasterxml.jackson.databind.ser.impl.SimpleBeanPropertyFilter;
-import com.fasterxml.jackson.databind.ser.impl.SimpleFilterProvider;
 
 /**
  * @author Emerson Santos (emerson.santos@prodeb.ba.gov.br)
@@ -21,19 +20,12 @@ public class LogAuditoriaUtils {
 	 * @param obj
 	 * @return
 	 */
-	public static String objectToJson(Object obj, String... propertiesExclude) {
+	public static String objectToJson(Object obj, Jackson2ObjectMapperBuilder mappingJackson2Object) {
 		ObjectMapper jackson = new ObjectMapper();
+		mappingJackson2Object.configure(jackson);
 
 		try {
-			if (propertiesExclude != null) {
-				SimpleBeanPropertyFilter sp = SimpleBeanPropertyFilter.serializeAllExcept(propertiesExclude);
-
-				FilterProvider filters = new SimpleFilterProvider().addFilter("logAuditFilter", sp);
-
-				return jackson.writer(filters).writeValueAsString(obj);
-			} else {
-				return jackson.writeValueAsString(obj);
-			}
+			return jackson.writeValueAsString(obj);
 		} catch (JsonProcessingException e) {
 			e.printStackTrace();
 		}
